@@ -28,6 +28,9 @@ var serviceObject = {
         },
         MessageSplitterServiceSoap12Port: {
             MessageSplitter: splitter_function
+        },
+        MessageSplitterServiceHttpGetPort: {
+            MessageSplitter: splitter_function
         }
     }
 };

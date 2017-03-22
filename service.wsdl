@@ -37,12 +37,26 @@
   <wsdl:message name="MessageSplitterSoapOut">
     <wsdl:part name="parameters" element="tns:MessageSplitterResponse"/>
   </wsdl:message>
+  <wsdl:message name="MessageSplitterHttpGetIn">
+    <wsdl:part name="message" type="s:string"/>
+    <wsdl:part name="splitter" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="MessageSplitterHttpGetOut">
+    <wsdl:part name="Body" element="tns:MessageSplitterResponse"/>
+  </wsdl:message>
   <!-- PORT TYPES: defines the complete communication operation (one way/round trip) -->
   <wsdl:portType name="MessageSplitterSoapPort">
     <!-- The operation name must be the same as the one specified in the service object -->
     <wsdl:operation name="MessageSplitter">
       <wsdl:input message="tns:MessageSplitterSoapIn"/>
       <wsdl:output message="tns:MessageSplitterSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MessageSplitterHttpGetPort">
+    <!-- The operation name must be the same as the one specified in the service object -->
+    <wsdl:operation name="MessageSplitter">
+      <wsdl:input message="tns:MessageSplitterHttpGetIn"/>
+      <wsdl:output message="tns:MessageSplitterHttpGetOut"/>
     </wsdl:operation>
   </wsdl:portType>
   <!-- BINDING: provides details on how a portType operation will actually be transmitted -->
@@ -70,6 +84,18 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="MessageSplitterServiceHttpGetBinding" type="tns:MessageSplitterHttpGetPort">
+    <http:binding verb="GET"/>
+    <wsdl:operation name="MessageSplitter">
+      <http:operation location="MessageSplitter"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <!-- SERVICE:  -->
   <wsdl:service name="MessageSplitterService">
     <wsdl:port name="MessageSplitterServiceSoapPort" binding="tns:MessageSplitterServiceSoapBinding">
@@ -77,6 +103,9 @@
     </wsdl:port>
     <wsdl:port name="MessageSplitterServiceSoap12Port" binding="tns:MessageSplitterServiceSoap12Binding">
       <soap12:address location="http://localhost:8000/wsdl"/>
+    </wsdl:port>
+    <wsdl:port name="MessageSplitterServiceHttpGetPort" binding="tns:MessageSplitterServiceHttpGetBinding">
+      <http:address location="http://localhost:8000/wsdl"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
