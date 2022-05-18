@@ -6,7 +6,7 @@ I'm not an expert in Javascript, nor Node, nor SOAP, but I had the necessity to 
 little poor, after the time I spent to make things somehow work, I want to share
 what I did in case someone else needs this.
 
-This README will go through a super simple yet kinda comprihensive example to
+This README will go through a super simple yet kinda comprehensive example to
 create a SOAP service and client in Node.js. The service has also been tested and is discoverable using .NET and its service reference tool.
 
 # Example description
@@ -88,7 +88,7 @@ Other information can be found [here](https://github.com/vpulim/node-soap#soapli
 ## The WSDL
 This section describes the WSDL file, the file that describes the web service. Some easy and quick information that I found useful can be found [here](https://www.tutorialspoint.com/wsdl/wsdl_introduction.htm).
 
-A service can have multiple publicly available function. For semplicity, we will just define one, named `MessageSplitter`.
+A service can have multiple publicly available functions. For simplicity, we will just define one, named `MessageSplitter`.
 
 Since I had not tool that allowed me to auto generate the WSDL (maybe I'll spend sometime to
 create one), I made the WSDL by hand. Please note that I am not an expert in WSDL or SOAP. I created the WSDL file starting from a WSDL file automatically generated from .NET, and used it as a reference to more or less understand how it works. Some parts are obscure to me, but hey, it works!
@@ -153,7 +153,7 @@ We create a binding with:
 ```
 <wsdl:binding name="MessageSplitterServiceSoap" type="tns:MessageSplitterPort">
 ```
-the `name` defines the name of the binding and is not so important, it will referred later. The `type` refers to the port for the binding, and refers to the port we previously defined.
+the `name` defines the name of the binding and is not so important, it will be referred to later. The `type` refers to the port for the binding, and refers to the port we previously defined.
 
 Inside the `<wsdl:binding>`, we define a `<wsdl:operation>`:
 ```
@@ -162,7 +162,7 @@ Inside the `<wsdl:binding>`, we define a `<wsdl:operation>`:
 ```
 the `name` and the `soapAction` have to be the same as the name specified in the `<wsdl:operation>` inside the `<wsdl:portType>`, or apparently it does not work (don't know why, I told you there are still a lot of obscure things).
 
-There 2 very similar bindings in the example.
+There are 2 very similar bindings in the example.
 
 ### WSDL Service
 Last but not least, the `<wsdl:service>` defines the port supported by the web service. For each supported protocol, there is one port element.
